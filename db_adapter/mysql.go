@@ -1,6 +1,9 @@
 package db_adapter
 
-import "fmt"
+import (
+	"fmt"
+	"path"
+)
 
 func MySqlStr() string {
 	const (
@@ -11,3 +14,5 @@ func MySqlStr() string {
 	)
 	return fmt.Sprintf("%s:%s@tcp(%s:%s)/", user, pass, host, port)
 }
+
+var MySqlSqlFile string = path.Join("sql", "mysql.sql")

@@ -4,5 +4,6 @@ var dbms mDatabase
 
 func main() {
 	displayTitle()
-	selectDBMS()
+	db := selectDBMS()
+	menu(db)
 }

@@ -3,6 +3,7 @@ package db_adapter
 import (
 	"fmt"
 	"net/url"
+	"path"
 )
 
 func sqlServerStr() string {
@@ -19,3 +20,5 @@ func sqlServerStr() string {
 	}
 	return u.String()
 }
+
+var SqlServerSqlFile string = path.Join("sql", "sqlserver.sql")

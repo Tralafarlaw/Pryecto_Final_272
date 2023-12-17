@@ -1,6 +1,10 @@
 package db_adapter
 
-import "fmt"
+import (
+	"fmt"
+	"path/filepath"
+	"strings"
+)
 
 func PostgresStr() string {
 	const (
@@ -9,5 +13,7 @@ func PostgresStr() string {
 		USER string = "usuario"
 		PASS string = "pass"
 	)
-	return fmt.Sprintf("host=%s port=%d user=%s password=%s sslmode=disable", HOST, PORT, USER, PASS)
+	return fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", HOST, PORT, USER, PASS, strings.ToLower(DB_NAME))
 }
+
+var PostgresSqlFile string = filepath.Join("sql", "postgres.sql")
