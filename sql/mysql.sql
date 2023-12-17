@@ -6,32 +6,20 @@
 -- Target DBMS : MySQL 8.x
 --
 
-DROP TABLE apartment
-;
-DROP TABLE bank_accounts
-;
-DROP TABLE bank_receipts
-;
-DROP TABLE banks
-;
-DROP TABLE bussiness_locals
-;
-DROP TABLE communities
-;
-DROP TABLE community_admins
-;
-DROP TABLE companies
-;
-DROP TABLE contact_infos
-;
-DROP TABLE offices
-;
-DROP TABLE owners
-;
-DROP TABLE spends
-;
-DROP TABLE tentants
-;
+DROP TABLE IF EXISTS apartment;
+DROP TABLE IF EXISTS bank_accounts;
+DROP TABLE IF EXISTS bank_receipts;
+DROP TABLE IF EXISTS banks;
+DROP TABLE IF EXISTS bussiness_locals;
+DROP TABLE IF EXISTS communities;
+DROP TABLE IF EXISTS community_admins;
+DROP TABLE IF EXISTS companies;
+DROP TABLE IF EXISTS contact_infos;
+DROP TABLE IF EXISTS offices;
+DROP TABLE IF EXISTS owners;
+DROP TABLE IF EXISTS spends;
+DROP TABLE IF EXISTS tentants;
+
 -- 
 -- TABLE: apartment 
 --

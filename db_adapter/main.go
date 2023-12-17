@@ -6,8 +6,10 @@ import (
 	_ "github.com/lib/pq"
 	_ "github.com/microsoft/go-mssqldb"
 	_ "github.com/microsoft/go-mssqldb/integratedauth/krb5"
+	"github.com/pterm/pterm"
 	_ "github.com/sijms/go-ora"
 	"log"
+	"strings"
 )
 
 const DB_NAME = "administraciondefincas"
@@ -15,9 +17,14 @@ const DB_NAME = "administraciondefincas"
 func Connect(database int) (*sql.DB, error) {
 	var driver, url = getAdapter(database)
 	con, err := sql.Open(driver, url)
-	err = con.Ping()
+	//log.Println("Con err: ", err)
+	//ans, errr := con.Query("SELECT * FROM v$version;")
+
+	//log.Println("Query: ", ans)
+	//log.Println("Error: ", errr.Error())
+
 	if err != nil {
-		panic(err)
+		log.Fatal("Ping Fail ", err)
 		return nil, err
 	}
 
@@ -25,10 +32,39 @@ func Connect(database int) (*sql.DB, error) {
 }
 
 func InitializeDb(database int, db *sql.DB) bool {
-	_, err := db.Exec(getInitDatabaseScript(database))
-	if err != nil {
-		log.Fatal(err)
-		return false
+
+	requests := strings.Split(getInitDatabaseScript(database), ";")
+	p, _ := pterm.DefaultProgressbar.WithTotal(len(requests)).WithTitle("Limpiando Base de datos").Start()
+	for _, r := range requests {
+		p.Increment()
+		if len(strings.TrimSpace(r)) == 0 {
+			continue
+		}
+		_, err := db.Exec(r)
+		if err != nil {
+			pterm.Error.Println("Query: " + r)
+			pterm.Error.Println("Detalles: " + err.Error())
+			return false
+		}
+	}
+
+	return true
+}
+
+func PopulateDB(database int, db *sql.DB) bool {
+	requests := strings.Split(getPopulateDatabaseScript(database), ";")
+	p, _ := pterm.DefaultProgressbar.WithTotal(len(requests)).WithTitle("Llenando Base de datos").Start()
+	for _, r := range requests {
+		p.Increment()
+		if len(strings.TrimSpace(r)) == 0 {
+			continue
+		}
+		_, err := db.Exec(r)
+		if err != nil {
+			pterm.Error.Println("Query: " + r)
+			pterm.Error.Println("Detalles: " + err.Error())
+			return false
+		}
 	}
 
 	return true

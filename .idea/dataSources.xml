@@ -27,7 +27,7 @@
       <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
-      <jdbc-url>jdbc:sqlserver://146.190.145.177:1433</jdbc-url>
+      <jdbc-url>jdbc:sqlserver://146.190.145.177:1433;database=admin_fincas</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

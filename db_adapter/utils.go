@@ -1,6 +1,11 @@
 package db_adapter
 
-import "os"
+import (
+	"fmt"
+	"github.com/pterm/pterm"
+	"os"
+	"path"
+)
 
 func getAdapter(selection int) (string, string) {
 	switch selection {
@@ -38,4 +43,36 @@ func getInitDatabaseScript(db int) string {
 	default:
 		return ""
 	}
+}
+func getPopulateDatabaseScript(db int) string {
+	switch db {
+	case 0:
+		return readSqlFile(MySqlInsertFile)
+	case 1:
+		return readSqlFile(OracleInsertFile)
+	case 2:
+		return readSqlFile(PostgresInsertFile)
+	case 3:
+		return readSqlFile(SqlServerInsertFile)
+	default:
+		return ""
+	}
+}
+
+func GetQuery(num string, dbms int) string {
+	var folder string
+	switch dbms {
+	case 0:
+		folder = "mysql"
+	case 1:
+		folder = "oracle"
+	case 2:
+		folder = "postgres"
+	case 3:
+		folder = "sqlserver"
+	}
+	file := fmt.Sprintf("q%s.sql", num)
+	filePath := path.Join("sql", "query", folder, file)
+	pterm.Info.Println(filePath)
+	return readSqlFile(filePath)
 }

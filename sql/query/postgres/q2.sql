@@ -1,0 +1,24 @@
+SELECT com.community_name as Nombre, com.population as Poblacion
+FROM communities as com
+-- SELECT com.community_name as Comunidad, count(tnt.id_inquilino) as Inquilinos
+-- FROM communities as com JOIN
+--      (
+--          ((SELECT com.community_id as comid, count(*) as tentant_count
+--            FROM communities as com
+--                     JOIN tentants as tnt ON com.community_id = tnt.community_id
+--            group by com.community_id, tnt.community_id) as inquilinos
+--              JOIN
+--              (SELECT com.community_id as comid, count(*) as business_num
+--               FROM communities as com
+--                        JOIN bussiness_locals as bl ON com.community_id = bl.community_id
+--               group by com.community_id, bl.community_id) as neg
+--           ON inquilinos.comid = neg.comid) as first_join JOIN
+--              ((SELECT com.community_id as comid, count(*) as off_num
+--                FROM communities as com
+--                         JOIN offices as of ON com.community_id = of.community_id
+--                group by com.community_id, of.community_id) as offices JOIN
+--                  (SELECT com.community_id as comid, count(*) as apartaments
+--                   FROM communities as com
+--                            JOIN apartment as ap ON com.community_id = ap.community_id
+--                   group by com.community_id, ap.community_id) as aparts
+--               ON aparts.comid = offices.comid) as second_join ON first_join.comid = second_join.comid) as third_join ON community_id = third_join.comid group by com.community_name, community_id

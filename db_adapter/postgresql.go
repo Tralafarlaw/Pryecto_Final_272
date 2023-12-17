@@ -17,3 +17,4 @@ func PostgresStr() string {
 }
 
 var PostgresSqlFile string = filepath.Join("sql", "postgres.sql")
+var PostgresInsertFile string = filepath.Join("sql", "populate_postgres.sql")
